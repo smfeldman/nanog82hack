@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+from pygnmi.client import gNMIclient
+# Variables
+eos = ('clab-team03-ceos1', 6030)
+srl = ('clab-team03-srl2', 57400)
+# Body
+if __name__ == '__main__':
+    print('#### EOS ####')
+    with gNMIclient(target=eos, username='admin', password='admin', insecure=True) as gc:
+        capabilities = gc.capabilities()
+        interface = gc.get(path=['/interfaces/interface[name=*]/subinterfaces/subinterface[index=*]/ipv4/addresses/address/config/ip'])
+    print('gNMI version: ', capabilities['gnmi_version'])
+    print('Get interfaces: ', interface)
+    print('\n#### SR Linux ####')
+    with gNMIclient(target=srl, username='admin', password='admin', insecure=False) as gc:
+        capabilities = gc.capabilities()
+        hostname = gc.get(path=['/system/name/host-name'], encoding='json_ietf')
+    print('gNMI version: ', capabilities['gnmi_version'])
+    print('Get /system/name/host-name: ', hostname)
