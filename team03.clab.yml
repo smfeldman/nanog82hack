@@ -31,7 +31,8 @@ topology:
       mgmt_ipv4: 172.22.3.4
       mgmt_ipv6: 2001:172:22:3::4
       binds:
-        - /home/team03/init_centos1.sh:/tmp/init.sh
+        - /home/team03/nanog82hack/init_centos1.sh:/tmp/init.sh
+        - /home/team03/nanog82hack:/nanog82
       cmd: "sh /tmp/init.sh"
 
     centos2:
@@ -40,7 +41,8 @@ topology:
       mgmt_ipv4: 172.22.3.5
       mgmt_ipv6: 2001:172:22:3::5
       binds:
-        - /home/team03/init_centos2.sh:/tmp/init.sh
+        - /home/team03/nanog82hack/init_centos2.sh:/tmp/init.sh
+        - /home/team03/nanog82hack:/nanog82
       cmd: "sh /tmp/init.sh"
 
   links:
