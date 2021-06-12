@@ -1,0 +1,49 @@
+name: team03
+
+mgmt:
+  network: custom_mgmt03
+  ipv4_subnet: 172.22.3.0/24
+  ipv6_subnet: 2001:172:22:3::/64
+
+topology:
+  kinds:
+    srl:
+      type: ixr6  # See https://www.nokia.com/networks/products/7250-interconnect-router/
+      image: srlinux
+      license: /home/administrator/license.key
+  nodes:
+    ceos1:
+      kind: ceos
+      image: ceos:latest
+      config: ceos1.cfg
+      mgmt_ipv4: 172.22.3.2
+      mgmt_ipv6: 2001:172:22:3::2
+
+    srl2:
+      kind: srl
+      config: srl2.cfg.json
+      mgmt_ipv4: 172.22.3.3
+      mgmt_ipv6: 2001:172:22:3::3
+
+    centos1:
+      kind: linux
+      image: nanoghackathon82/centos
+      mgmt_ipv4: 172.22.3.4
+      mgmt_ipv6: 2001:172:22:3::4
+      binds:
+        - /home/team03/init_centos1.sh:/tmp/init.sh
+      cmd: "sh /tmp/init.sh"
+
+    centos2:
+      kind: linux
+      image: nanoghackathon82/centos
+      mgmt_ipv4: 172.22.3.5
+      mgmt_ipv6: 2001:172:22:3::5
+      binds:
+        - /home/team03/init_centos2.sh:/tmp/init.sh
+      cmd: "sh /tmp/init.sh"
+
+  links:
+    - endpoints: ["ceos1:eth1", "srl2:e1-1"]
+    - endpoints: ["ceos1:eth2", "centos1:eth1"]
+    - endpoints: ["srl2:e1-2", "centos2:eth1"]
