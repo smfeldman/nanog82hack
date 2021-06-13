@@ -45,6 +45,16 @@ topology:
         - /home/team03/nanog82hack:/nanog82
       cmd: "sh /tmp/init.sh"
 
+    nautobot:
+      kind: linux
+      image: networktocode/nautobot-lab
+      mgmt_ipv4: 172.22.3.6
+      mgmt_ipv6: 2001:172:22:3::6
+      binds:
+        - /home/team03/nanog82hack:/nanog82
+      ports:
+        - 8003:8000
+
   links:
     - endpoints: ["ceos1:eth1", "srl2:e1-1"]
     - endpoints: ["ceos1:eth2", "centos1:eth1"]
