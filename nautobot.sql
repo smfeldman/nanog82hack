@@ -3619,6 +3619,8 @@ COPY public.dcim_consoleserverporttemplate (id, _custom_field_data, name, _name,
 --
 
 COPY public.dcim_device (id, created, last_updated, _custom_field_data, local_context_data, local_context_data_owner_object_id, name, _name, serial, asset_tag, "position", face, vc_position, vc_priority, comments, cluster_id, device_role_id, device_type_id, local_context_data_owner_content_type_id, platform_id, primary_ip4_id, primary_ip6_id, rack_id, site_id, status_id, tenant_id, virtual_chassis_id) FROM stdin;
+cd73f70d-39a0-4e41-80f6-5d1ff9d8e17e	2021-06-13	2021-06-13 20:14:19.659543+00	{}	\N	\N	ceos1	ceos00000001		\N	\N		\N	\N		\N	f9e3ce17-8a07-44b6-bd4b-1b59a29941ff	a72cb04d-1529-40cc-89ac-25b8cb5ebae2	\N	1102664e-a353-420e-b4fd-294bb5bf9507	36ededc0-88d6-4acd-a4f0-5470a78dd3f0	\N	\N	2402dea3-2fa9-483e-8cff-d74bd197d92c	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+a2837b2f-bcf9-472b-978e-cd48fbab2c7a	2021-06-13	2021-06-13 20:14:37.373363+00	{}	\N	\N	srl2	srl00000002		\N	\N		\N	\N		\N	f9e3ce17-8a07-44b6-bd4b-1b59a29941ff	dc1aacc8-0bd3-47c5-8a40-8d03ff4433a1	\N	8ed30518-e71c-4af0-94eb-dcff4f36aed4	0347ff8e-d762-4976-b53a-829595bccd8f	\N	\N	2402dea3-2fa9-483e-8cff-d74bd197d92c	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
 \.
 
 
@@ -3643,6 +3645,7 @@ COPY public.dcim_devicebaytemplate (id, _custom_field_data, name, _name, label, 
 --
 
 COPY public.dcim_devicerole (id, created, last_updated, _custom_field_data, name, slug, color, vm_role, description) FROM stdin;
+f9e3ce17-8a07-44b6-bd4b-1b59a29941ff	2021-06-13	2021-06-13 02:26:22.358127+00	{}	Router	router	9e9e9e	f	
 \.
 
 
@@ -3651,6 +3654,8 @@ COPY public.dcim_devicerole (id, created, last_updated, _custom_field_data, name
 --
 
 COPY public.dcim_devicetype (id, created, last_updated, _custom_field_data, model, slug, part_number, u_height, is_full_depth, subdevice_role, front_image, rear_image, comments, manufacturer_id) FROM stdin;
+a72cb04d-1529-40cc-89ac-25b8cb5ebae2	2021-06-13	2021-06-13 02:24:07.198001+00	{}	cEOSLab	ceoslab		0	t				Arista cEOSLab container image	7e2d2515-3231-4a1b-9ed7-798f25bc6144
+dc1aacc8-0bd3-47c5-8a40-8d03ff4433a1	2021-06-13	2021-06-13 02:25:03.556632+00	{}	vr-sros	vr-sros		0	t				Nokia SR-OS container image	3161d385-7a9e-4f7d-bf20-f50a806205c4
 \.
 
 
@@ -3675,6 +3680,14 @@ COPY public.dcim_frontporttemplate (id, _custom_field_data, name, _name, label, 
 --
 
 COPY public.dcim_interface (id, _custom_field_data, name, label, description, _cable_peer_id, enabled, mac_address, mtu, mode, _name, type, mgmt_only, _cable_peer_type_id, _path_id, cable_id, device_id, lag_id, untagged_vlan_id) FROM stdin;
+2ce8194f-f1e6-48c3-9dda-2b179fc25ced	{}	mgmt0.0			\N	t	\N	\N		9999999999999999mgmt000000......000000	virtual	t	\N	\N	\N	a2837b2f-bcf9-472b-978e-cd48fbab2c7a	\N	\N
+be78dc46-b8f4-440b-970f-343c14553f49	{}	ethernet-1/1.0			\N	t	\N	\N		0001999999999999ethernet-000001......000000	virtual	f	\N	\N	\N	a2837b2f-bcf9-472b-978e-cd48fbab2c7a	\N	\N
+ee112af8-2994-4936-87f6-1f07bc046d18	{}	ethernet-1/2.0			\N	t	\N	\N		0001999999999999ethernet-000002......000000	virtual	f	\N	\N	\N	a2837b2f-bcf9-472b-978e-cd48fbab2c7a	\N	\N
+24eaecd1-f013-4b58-9f4b-d62c89a06fde	{}	lo0			\N	t	\N	\N		9999999999999999lo000000............	virtual	f	\N	\N	\N	a2837b2f-bcf9-472b-978e-cd48fbab2c7a	\N	\N
+6748e50d-56dc-424f-a1d9-7253b4e47174	{}	Management0			\N	t	\N	\N		9999999999999999Management000000............	virtual	t	\N	\N	\N	cd73f70d-39a0-4e41-80f6-5d1ff9d8e17e	\N	\N
+3160642c-5b69-47ab-a81c-8cba02d60fa3	{}	Ethernet1		srl02:ethernet-1-1	\N	t	\N	\N		9999999999999999Ethernet000001............	virtual	f	\N	\N	\N	cd73f70d-39a0-4e41-80f6-5d1ff9d8e17e	\N	\N
+19b237e1-cfc5-4be1-9dee-29b2724ed2fb	{}	Ethernet2		centos1:eth1	\N	t	\N	\N		9999999999999999Ethernet000002............	virtual	f	\N	\N	\N	cd73f70d-39a0-4e41-80f6-5d1ff9d8e17e	\N	\N
+30bc917d-5e34-4f00-9749-bb79e38f7bc6	{}	Loopback0		loopback interface	\N	t	\N	\N		9999999999999999Loopback000000............	virtual	f	\N	\N	\N	cd73f70d-39a0-4e41-80f6-5d1ff9d8e17e	\N	\N
 \.
 
 
@@ -3707,6 +3720,8 @@ COPY public.dcim_inventoryitem (id, _custom_field_data, name, _name, label, desc
 --
 
 COPY public.dcim_manufacturer (id, created, last_updated, _custom_field_data, name, slug, description) FROM stdin;
+7e2d2515-3231-4a1b-9ed7-798f25bc6144	2021-06-13	2021-06-13 02:19:31.954124+00	{}	Arista	arista	Arista Networks
+3161d385-7a9e-4f7d-bf20-f50a806205c4	2021-06-13	2021-06-13 02:20:38.852797+00	{}	Nokia	nokia	Nokia
 \.
 
 
@@ -3715,6 +3730,8 @@ COPY public.dcim_manufacturer (id, created, last_updated, _custom_field_data, na
 --
 
 COPY public.dcim_platform (id, created, last_updated, _custom_field_data, name, slug, napalm_driver, napalm_args, description, manufacturer_id) FROM stdin;
+1102664e-a353-420e-b4fd-294bb5bf9507	2021-06-13	2021-06-13 02:21:12.851123+00	{}	eos	eos		\N		7e2d2515-3231-4a1b-9ed7-798f25bc6144
+8ed30518-e71c-4af0-94eb-dcff4f36aed4	2021-06-13	2021-06-13 02:22:41.238824+00	{}	SR-OS	sr-os		\N		3161d385-7a9e-4f7d-bf20-f50a806205c4
 \.
 
 
@@ -3827,6 +3844,7 @@ COPY public.dcim_region (id, created, last_updated, _custom_field_data, name, sl
 --
 
 COPY public.dcim_site (id, created, last_updated, _custom_field_data, name, _name, slug, facility, asn, time_zone, description, physical_address, shipping_address, latitude, longitude, contact_name, contact_phone, contact_email, comments, region_id, status_id, tenant_id) FROM stdin;
+2402dea3-2fa9-483e-8cff-d74bd197d92c	2021-06-13	2021-06-13 02:16:31.773989+00	{}	NANOG82	NANOG00000082	nanog82		\N					\N	\N				NANOG 82 Hackathon	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N
 \.
 
 
@@ -3843,6 +3861,7 @@ COPY public.dcim_virtualchassis (id, created, last_updated, _custom_field_data, 
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2021-06-13 19:59:36.907248+00	ad0b0b0e-4faf-4620-b318-34e9ad00fdcb	d73a38 (team03)	1	[{"added": {}}]	81	77419797-fd2b-42f9-b9d9-378e2206c787
 \.
 
 
@@ -4310,6 +4329,22 @@ COPY public.ipam_aggregate (id, created, last_updated, _custom_field_data, netwo
 --
 
 COPY public.ipam_ipaddress (id, created, last_updated, _custom_field_data, host, broadcast, prefix_length, role, assigned_object_id, dns_name, description, assigned_object_type_id, nat_inside_id, status_id, tenant_id, vrf_id) FROM stdin;
+0347ff8e-d762-4976-b53a-829595bccd8f	2021-06-13	2021-06-13 02:34:25.945511+00	{}	\\xac160303	\\xac1603ff	24		2ce8194f-f1e6-48c3-9dda-2b179fc25ced			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+44a80495-18ab-4b7d-8f9c-68d02e13cf30	2021-06-13	2021-06-13 02:38:35.391839+00	{}	\\x0a0a0001	\\x0a0a0000	31		be78dc46-b8f4-440b-970f-343c14553f49			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+24ef3f6d-fb31-4f04-bb4c-473b630c28ec	2021-06-13	2021-06-13 02:39:21.921159+00	{}	\\x20010db8ffff00000000000000000002	\\x20010db8ffff0000000000000000ffff	112		be78dc46-b8f4-440b-970f-343c14553f49			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+435134bc-5d15-44f3-a912-92ed6743af81	2021-06-13	2021-06-13 02:39:56.652715+00	{}	\\x0a640201	\\x0a6402ff	24		ee112af8-2994-4936-87f6-1f07bc046d18			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+3155d4a3-7735-4283-b155-61059b84a454	2021-06-13	2021-06-13 02:40:14.101654+00	{}	\\x20010db8000000010000000000000001	\\x20010db800000001ffffffffffffffff	64		ee112af8-2994-4936-87f6-1f07bc046d18			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+3bfe68ab-6f3b-41db-92a4-9ad37ed5dd39	2021-06-13	2021-06-13 02:41:42.475503+00	{}	\\x0a000002	\\x0a000002	32	loopback	24eaecd1-f013-4b58-9f4b-d62c89a06fde			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+3291d9da-916b-4af6-832c-d6629566d029	2021-06-13	2021-06-13 02:42:14.376599+00	{}	\\x20010db8000100000000000000000002	\\x20010db8000100000000000000000002	128	loopback	24eaecd1-f013-4b58-9f4b-d62c89a06fde			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+3492dadd-d535-4565-81a8-64644323401d	2021-06-13	2021-06-13 02:42:47.701652+00	{}	\\x20010172002200030000000000000003	\\x2001017200220003ffffffffffffffff	64		2ce8194f-f1e6-48c3-9dda-2b179fc25ced			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+49ca16eb-5449-438a-bf34-bc98275a17e2	2021-06-13	2021-06-13 19:18:12.858797+00	{}	\\x20010172002200030000000000000002	\\x2001017200220003ffffffffffffffff	64		6748e50d-56dc-424f-a1d9-7253b4e47174			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+36ededc0-88d6-4acd-a4f0-5470a78dd3f0	2021-06-13	2021-06-13 19:18:53.285534+00	{}	\\xac160302	\\xac1603ff	24		6748e50d-56dc-424f-a1d9-7253b4e47174			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+c24ea187-e6bc-41e3-8826-4c77150cfe46	2021-06-13	2021-06-13 19:19:37.856935+00	{}	\\x0a0a0000	\\x0a0a0000	31		3160642c-5b69-47ab-a81c-8cba02d60fa3			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+1bcec005-6ed4-46c0-bd77-0023ad3481f2	2021-06-13	2021-06-13 19:19:58.359996+00	{}	\\x20010db8ffff00000000000000000001	\\x20010db8ffff0000000000000000ffff	112		3160642c-5b69-47ab-a81c-8cba02d60fa3			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+a22babe3-8cee-4580-bd28-6feb82d21016	2021-06-13	2021-06-13 19:22:32.459388+00	{}	\\x0a640101	\\x0a6401ff	24		19b237e1-cfc5-4be1-9dee-29b2724ed2fb			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+e405fff0-f991-4074-b744-883d5571ade9	2021-06-13	2021-06-13 19:22:58.685209+00	{}	\\x20010db8000000000000000000000001	\\x20010db800000000ffffffffffffffff	64		19b237e1-cfc5-4be1-9dee-29b2724ed2fb			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+04c74933-427a-44c2-8727-59f079500c9b	2021-06-13	2021-06-13 19:23:17.031895+00	{}	\\x0a000001	\\x0a000001	32	loopback	30bc917d-5e34-4f00-9749-bb79e38f7bc6			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
+64360c57-b14d-4d17-885c-7ba675c2eaf1	2021-06-13	2021-06-13 19:23:33.988723+00	{}	\\x20010db8000100000000000000000001	\\x20010db8000100000000000000000001	128	loopback	30bc917d-5e34-4f00-9749-bb79e38f7bc6			37	\N	792b14cb-b737-4fa2-8d48-5fab86648210	\N	\N
 \.
 
 
@@ -4510,6 +4545,7 @@ COPY public.users_objectpermission_users (id, objectpermission_id, user_id) FROM
 --
 
 COPY public.users_token (id, created, expires, key, write_enabled, description, user_id) FROM stdin;
+ad0b0b0e-4faf-4620-b318-34e9ad00fdcb	2021-06-13 19:59:36.903401+00	\N	0f582d42187309bf11fd23293d87bb1072d73a38	t	Hackathon development token	77419797-fd2b-42f9-b9d9-378e2206c787
 \.
 
 
@@ -4607,7 +4643,7 @@ SELECT pg_catalog.setval('public.dcim_interface_tagged_vlans_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: nautobot
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, true);
 
 
 --
