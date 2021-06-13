@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+
+import click
+
+from pygnmi.client import gNMIclient
+from pynautobot import api
+from pprint import pprint
+
+# don't do this!
+
+NB_URL =   'http://clab-team03-nautobot:8000'
+NB_TOKEN = '0f582d42187309bf11fd23293d87bb1072d73a38'
+
+def check_descriptions(device, descriptions):
+    #print("check_descriptions({}, {})".format(device, descriptions))
+    with gNMIclient(target=(device, 6030), username='admin', password='admin', insecure=True) as gc:
+        for interface, description in descriptions.items():
+            # print(f"  check {interface} '{description}'")
+            result = gc.get(path=[f"/interfaces/interface[name={interface}]/config"])
+            # pprint(result)
+            current_desc = result['notification'][0]['update'][0]['val']['openconfig-interfaces:description']
+            if description != current_desc:
+                print("  update interface {} to '{}'".format(interface, description))
+                update = [
+                    (
+                        f"openconfig-interfaces:interfaces/interface[name={interface}]",
+                        {
+                            "config": {
+                                "description": description
+                            }
+                        }
+                    )
+                ]
+                result = gc.set(update=update, encoding='json_ietf')
+            else:
+                print("  no update: interface {} is '{}'".format(interface, description))
+
+@click.command()
+def main():
+    nb = api(url=NB_URL, token=NB_TOKEN)
+
+    version = nb.version
+    print(f"Nautobot version {version}")
+
+    #devices = nb.dcim.devices.query(status=Active)
+    devices = nb.dcim.devices.all()
+    for device in devices:
+        # print("{}: {} {}".format(device.name, device.status, device.platform))
+        if str(device.status) != 'Active':
+            continue
+        if str(device.platform) == 'eos':
+            print("Updating {}".format(device.name))
+            interfaces = nb.dcim.interfaces.filter(device=device.name)
+            descriptions= {}
+            for interface in interfaces:
+                # print("  interface {}: '{}'".format(interface.name, interface.description))
+                descriptions[interface.name] = interface.description
+            check_descriptions(device.name, descriptions)
+        else:
+            print("{}: platform {} not implemented".format(device.name, device.platform))
+
+if __name__ == '__main__':
+    main()
