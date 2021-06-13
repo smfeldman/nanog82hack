@@ -42,22 +42,27 @@ def main():
     version = nb.version
     print(f"Nautobot version {version}")
 
-    #devices = nb.dcim.devices.query(status=Active)
-    devices = nb.dcim.devices.all()
-    for device in devices:
-        # print("{}: {} {}".format(device.name, device.status, device.platform))
-        if str(device.status) != 'Active':
-            continue
-        if str(device.platform) == 'eos':
-            print("Updating {}".format(device.name))
-            interfaces = nb.dcim.interfaces.filter(device=device.name)
-            descriptions= {}
-            for interface in interfaces:
-                # print("  interface {}: '{}'".format(interface.name, interface.description))
-                descriptions[interface.name] = interface.description
-            check_descriptions(device.name, descriptions)
-        else:
-            print("{}: platform {} not implemented".format(device.name, device.platform))
+    query = """
+{
+  devices(platform: "eos", status: "active") {
+    name
+    interfaces {
+      name
+      description
+    }
+  }
+}
+"""
+    result = nb.graphql.query(query=query)
+    # pprint(result.json['data'])
+    for device in result.json['data']['devices']:
+        print("Updating {}".format(device['name']))
+        descriptions= {}
+        for interface in device['interfaces']:
+            pprint(interface)
+            descriptions[interface['name']] = interface['description']
+        check_descriptions(device['name'], descriptions)
+
 
 if __name__ == '__main__':
     main()
