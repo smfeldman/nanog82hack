@@ -36,7 +36,8 @@ def check_descriptions(device, descriptions):
                 print("  no update: interface {} is '{}'".format(interface, description))
 
 @click.command()
-def main():
+@click.option('-v', '--verbose', is_flag=True)
+def main(verbose):
     nb = api(url=NB_URL, token=NB_TOKEN)
 
     version = nb.version
@@ -54,7 +55,9 @@ def main():
 }
 """
     result = nb.graphql.query(query=query)
-    # pprint(result.json['data'])
+    if verbose:
+        print("GraphQL result:")
+        pprint(result.json)
     for device in result.json['data']['devices']:
         print("Updating {}".format(device['name']))
         descriptions= {}
