@@ -16,8 +16,29 @@ Based on these learning goals, I came up with some simple project goals:
 - Create some source of truth data in NetBox/Nautobot
 - Create a Python script to update interface descriptions based on source of truth data, using NetBox/Nautobot and GNMI APIs.
 
-## Nautobot Installation in Containerlab
 ## Shared host files in ContainerLab
+I wanted a way to mount a host directory in the CentOS containers, to simplify code development and git access in the various environments.
+To do this, I added these lines to the CentOS host entries in Containerlab configuration file:
+```
+      binds:
+        - /home/team03/nanog82hack:/nanog82
+```
+## Nautobot Installation in Containerlab
+Nautobot is a fork of NetBox with similar features, and the developers maintain a single container demo image.
+To install this, I added these lines to the Containerlab configuration:
+```
+    nautobot:
+      kind: linux
+      image: networktocode/nautobot-lab
+      mgmt_ipv4: 172.22.3.6
+      mgmt_ipv6: 2001:172:22:3::6
+      binds:
+        - /home/team03/nanog82hack:/nanog82
+      ports:
+        - 8003:8000
+```
+Since this is also Linux-based, the  host directory `bind` also works.
+This is useful for saving and restoring database backups.
 ## Source of truth data
 Given the limited time, I just created simple entries for the two virtual routers and their interfaces:
 ![Nautobot devices](doc/nautobot-devices.png?raw=true "Devices in Nautobot")
