@@ -45,3 +45,22 @@ Given the limited time, I just created simple entries for the two virtual router
 ![Nautobot ceos1 interfaces](doc/nautobot-ceos1.png?raw=true "ceos1 interfaces in Nautbot")
 
 ## Device update script
+
+### Source of Truth: Nautobot REST API calls
+- pynautobot
+(put examples here)
+### Device configuration changes: gNMI
+- cEOS was fairly easy
+- SR OS was different, I ran out of time.
+### Source of Truth: Nautbot GraphQL API
+- explain GraphQL
+- pynautobot
+(put examples here)
+
+## Possible next steps
+- Replicate Containerlab environment on my own hardware
+- GNMI/pygnmi on non-Arista images
+- Juniper and/or Cisco images in containerlab
+- Webhook receiver to push changes on demand
+- Use ansible and/or nornir for device updates
+
