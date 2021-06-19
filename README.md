@@ -20,7 +20,7 @@ Based on these learning goals, I came up with some simple project goals:
 ## Shared host files in ContainerLab
 ## Source of truth data
 Given the limited time, I just created simple entries for the two virtual routers and their interfaces:
-![Nautobot devices](doc/nautbot-devices.png?raw=true "Devices in Nautobot")
-![Nautobot ceos1 interfaces](doc/nautbot-ceos1-interfaces.png?raw=true "ceos1 interfaces in Nautbot")
+![Nautobot devices](doc/nautobot-devices.png?raw=true "Devices in Nautobot")
+![Nautobot ceos1 interfaces](doc/nautobot-ceos1.png?raw=true "ceos1 interfaces in Nautbot")
 
 ## Device update script
