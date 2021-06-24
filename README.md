@@ -63,8 +63,20 @@ Then for each device meeting the criteria, the interface information is fetched:
                 descriptions[interface.name] = interface.description
 ```
 ### Device configuration changes: gNMI
-- cEOS was fairly easy
-- SR OS was different, I ran out of time.
+cEOS was fairly easy:
+```                update = [
+                    (
+                        f"openconfig-interfaces:interfaces/interface[name={interface}]",
+                        {
+                            "config": {
+                                "description": description
+                            }
+                        }
+                    )
+                ]
+                result = gc.set(update=update, encoding='json_ietf')
+```
+But SR OS was different, and I ran out of time to make it work.
 ### Source of Truth: Nautbot GraphQL API
 [GraphQL](https://graphql.org/) is an alternative API query language, capable of expressing complex queries
 across multiple resources.  These are processed on the server, returning only the desired results.
@@ -91,7 +103,7 @@ Using Nautobot's GraphQL API, the above set of queries is reduced to one:
 Note: This was done after the NANOG 82 Hackathon.
 
 ## Possible next steps
-- Replicate Containerlab environment on my own hardware
+- Replicate Containerlab environment on my own hardware (in progress)
 - GNMI/pygnmi on non-Arista images
 - Juniper and/or Cisco images in containerlab
 - Webhook receiver to push changes on demand
