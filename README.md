@@ -46,16 +46,49 @@ Given the limited time, I just created simple entries for the two virtual router
 
 ## Device update script
 
-### Source of Truth: Nautobot REST API calls
-- pynautobot
-(put examples here)
+### Source of Truth: Nautobot API calls
+Nautobot source of truth data is fetched using the [pynautobot](https://pynautobot.readthedocs.io/en/latest/) python package.
+
+First, the device list is fetched:
+```
+    devices = nb.dcim.devices.all()
+```
+Then for each device meeting the criteria, the interface information is fetched:
+```
+    for device in devices:
+        if str(device.status) == 'Active' and str(device.platform) == 'eos':
+            interfaces = nb.dcim.interfaces.filter(device=device.name)
+            descriptions= {}
+            for interface in interfaces:
+                descriptions[interface.name] = interface.description
+```
 ### Device configuration changes: gNMI
 - cEOS was fairly easy
 - SR OS was different, I ran out of time.
 ### Source of Truth: Nautbot GraphQL API
-- explain GraphQL
-- pynautobot
-(put examples here)
+[GraphQL](https://graphql.org/) is an alternative API query language, capable of expressing complex queries
+across multiple resources.  These are processed on the server, returning only the desired results.
+
+Using Nautobot's GraphQL API, the above set of queries is reduced to one:
+```
+    query = """
+{
+  devices(platform: "eos", status: "active") {
+    name
+    interfaces {
+      name
+      description
+    }
+  }
+}
+"""
+    result = nb.graphql.query(query=query)
+    for device in result.json['data']['devices']:
+        descriptions= {}
+        for interface in device['interfaces']:
+            descriptions[interface['name']] = interface['description']
+```
+Note: This was done after the NANOG 82 Hackathon.
 
 ## Possible next steps
 - Replicate Containerlab environment on my own hardware
