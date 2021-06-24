@@ -11,14 +11,19 @@ from pprint import pprint
 NB_URL =   'http://clab-team03-nautobot:8000'
 NB_TOKEN = '0f582d42187309bf11fd23293d87bb1072d73a38'
 
-def check_descriptions(device, descriptions):
+def check_descriptions(device, descriptions, verbose=False):
     #print("check_descriptions({}, {})".format(device, descriptions))
     with gNMIclient(target=(device, 6030), username='admin', password='admin', insecure=True) as gc:
         for interface, description in descriptions.items():
-            # print(f"  check {interface} '{description}'")
+            if verbose:
+                print(f"  check {interface} '{description}':")
             result = gc.get(path=[f"/interfaces/interface[name={interface}]/config"])
-            # pprint(result)
-            current_desc = result['notification'][0]['update'][0]['val']['openconfig-interfaces:description']
+            if verbose:
+                pprint(result)
+            if 'openconfig-interfaces:description' in result['notification'][0]['update'][0]['val']:
+                current_desc = result['notification'][0]['update'][0]['val']['openconfig-interfaces:description']
+            else:
+                current_desc = ''
             if description != current_desc:
                 print("  update interface {} to '{}'".format(interface, description))
                 update = [
@@ -64,7 +69,7 @@ def main(verbose):
         for interface in device['interfaces']:
             pprint(interface)
             descriptions[interface['name']] = interface['description']
-        check_descriptions(device['name'], descriptions)
+        check_descriptions(device['name'], descriptions, verbose)
 
 
 if __name__ == '__main__':
