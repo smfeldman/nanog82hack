@@ -64,7 +64,8 @@ Then for each device meeting the criteria, the interface information is fetched:
 ```
 ### Device configuration changes: gNMI
 cEOS was fairly easy:
-```                update = [
+```
+                update = [
                     (
                         f"openconfig-interfaces:interfaces/interface[name={interface}]",
                         {
