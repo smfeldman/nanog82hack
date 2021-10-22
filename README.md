@@ -110,3 +110,12 @@ Note: This was done after the NANOG 82 Hackathon.
 - Webhook receiver to push changes on demand
 - Use ansible and/or nornir for device updates
 
+## NANOG 83 Hackathon ideas
+- Rebuild this in the new AWS-hosted containerlab environment
+  - Rebuild Nautobot with the latest release
+  - Revisit shared files - are they still useful?
+- IPv6
+  - Nautobot access
+  - Web servers on centos containers
+  - Automation for IPv6 interface setup, routing protocols
+- Other ideas from "next steps" section
